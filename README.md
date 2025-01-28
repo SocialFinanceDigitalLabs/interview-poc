@@ -19,7 +19,7 @@ The aim is to see how you approach problems, what elements you consider, and how
 evaluate your own work. **Please do not spend more than a few hours completing this task.**
 
 We do not expect/enforce the use of specific technologies or approaches - choose what
-feels appropriate. For example, in this repository `poetry` is used for package management.
+feels appropriate. For example, in this repository [poetry](https://python-poetry.org/) is used for package management.
 It is not a requirement to use it.
 
 We expect that you will be able to talk us through your approach to this solution and that
