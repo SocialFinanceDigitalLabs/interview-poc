@@ -16,7 +16,7 @@ forked repo, and give `cyramic` and `christina-moore` read access.
 ## Expectations
 We do not expect a fully featured and polished web application at the end of this task.
 The aim is to see how you approach problems, what elements you consider, and how you
-evaluate your own work. Please do not spend more than a few hours completing this task.
+evaluate your own work. **Please do not spend more than a few hours completing this task.**
 
 We do not expect/enforce the use of specific technologies or approaches - choose what
 feels appropriate. For example, in this repository `poetry` is used for package management.
