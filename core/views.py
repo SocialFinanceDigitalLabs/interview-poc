@@ -1,20 +1,21 @@
 # core/views.py
 import io
 import csv
+from .models import Person
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
-from django.db.models import Count
 from .models import Person
 from .forms import UploadFileForm  # Import the form from forms.py
 from .utils import parse_date,fetch_gender_data,fetch_region_data,fetch_yearly_birth_data       # Import the utility function from utils.py
 
 def home(request):
     person_list = Person.objects.all()
-    paginator = Paginator(person_list, 10)  # Show 10 persons per page
+    paginator = Paginator(person_list, 10) 
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
+    
     return render(request, 'referrals/home.html', {'page_obj': page_obj})
 
 def upload(request):
@@ -24,7 +25,7 @@ def upload(request):
     if request.method == 'POST' and form.is_valid():
         file = request.FILES['file']
         decoded_file = file.read().decode('utf-8')
-        io_string = io.StringIO(decoded_file)
+        io_string = io.StringIO(decoded_file)  # Create a StringIO object
         next(io_string)  # Skip header row
 
         for row in csv.reader(io_string, delimiter=','):
@@ -41,11 +42,11 @@ def upload(request):
             )
         return render(request, 'referrals/upload.html', {'form': form, 'success': True})
 
+    elif request.method == 'POST':
+        messages.error(request, 'Unable to upload file.')
+
     return render(request, 'referrals/upload.html', {'form': form})
 
-from django.db.models import Count
-from django.shortcuts import render
-from .models import Person
 
 
 
@@ -55,7 +56,6 @@ def charts(request):
     regions, region_counts = fetch_region_data()
     years, yearly_counts = fetch_yearly_birth_data()
 
-    print(genders, gender_counts)
     context = {
         'genders': genders,
         'gender_counts': gender_counts,
