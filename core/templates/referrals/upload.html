@@ -11,10 +11,8 @@
   <form method="post" enctype="multipart/form-data" class="needs-validation">
       {% csrf_token %}
       
-      <!-- Render the label manually -->
       <div class="mb-3">
           <label for="id_file" class="form-label" style="color: #144650;">{{ form.file.label }}</label>
-          <!-- Render the input field manually -->
           {{ form.file }}
       </div>
       <button type="submit" class="btn btn-primary" style="background-color: #144650; border-color: #144650;">Upload</button>
