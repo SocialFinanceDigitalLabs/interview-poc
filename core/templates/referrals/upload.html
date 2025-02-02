@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 {% if success %}
-      <div class="alert alert-success mt-3" role="alert">
+      <div class="alert alert-success mt-3 alert-dismissible fade show " role="alert">
           Uploaded file successfully 🤭
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       {% endif %}
   <h2 class="mb-4" style="color: #144650;">Upload CSV File</h2>
