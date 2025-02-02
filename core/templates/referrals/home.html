@@ -1,7 +1,75 @@
 {% extends "base.html" %}
-
 {% block content %}
+  <h2 class="mb-4" style="color: #144650;">Uploaded Data</h2>
+  
+  <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+          <thead class="table-light" style="background-color: #144650; color: white;">
+              <tr>
+                  <th>ID</th>
+                  <th>Date of Birth</th>
+                  <th>Gender</th>
+                  <th>Region</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for person in page_obj.object_list %}
+              <tr>
+                  <td>{{ person.id }}</td>
+                  <td>{{ person.date_of_birth }}</td>
+                  <td>{{ person.gender }}</td>
+                  <td>{{ person.region }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                  <td colspan="4" class="text-center">No data available.</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
 
-Any welcome content here
+  <!-- Pagination Controls -->
+  <nav aria-label="Page navigation" class="mt-4">
+      <ul class="pagination justify-content-center">
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page=1" aria-label="First" style="color: #144650;">
+                  <span aria-hidden="true">&laquo;&laquo;</span>
+              </a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous" style="color: #144650;">
+                  <span aria-hidden="true">&laquo;</span>
+              </a>
+          </li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+              <li class="page-item active" aria-current="page">
+                  <span class="page-link" style="background-color: #144650; color: white;">{{ num }}</span>
+              </li>
+              {% else %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ num }}" style="color: #144650;">{{ num }}</a>
+              </li>
+              {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next" style="color: #144650;">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last" style="color: #144650;">
+                  <span aria-hidden="true">&raquo;&raquo;</span>
+              </a>
+          </li>
+          {% endif %}
+      </ul>
+  </nav>
 
 {% endblock %}
