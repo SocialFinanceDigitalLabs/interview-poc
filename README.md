@@ -1,26 +1,28 @@
-# Data Ingestion and Display PoC
+This repository contains a proof-of-concept Django web application. The application demonstrates the following:
 
-## Task
-An example file of people data can be found in the `data` directory. The task is to 
-create a Proof of Concept web application according to the following user journeys:
-- User can upload a data file to the application. The data will be stored in the tool's database.
-- User can view data that has been uploaded to the tool.
-- User can view relevant visualisation(s) of the data that has been uploaded.
+- Data Upload: Users can upload a CSV file containing people data. The data is validated and then stored in the database.
+- Data View: Users can view the uploaded data in a paginated table.
+- Data Visualization: Users can view charts that aggregate the data (e.g., by gender and region). Chart data is cached using Redis to improve performance.
 
-You do not have to use the scaffolding within this repository - it is optional, but
-intended to remove some of the initial setup required.
+## Features
+- Dependencies are managed using a virtual environment
+- CSV file upload with data validation and bulk insertion.
+- Paginated data display.
+- Chart generation with caching via Redis.
+- Logging of errors and warnings during data processing.
+- Built with Django.
+- 
+## Components
 
-Please fork this repository, add your solution as a PR in your
-forked repo, and give `cyramic` and `christina-moore` read access.
 
-## Expectations
-We do not expect a fully featured and polished web application at the end of this task.
-The aim is to see how you approach problems, what elements you consider, and how you
-evaluate your own work. **Please do not spend more than a few hours completing this task.**
+- csv_utils.py: Contains logic for csv processing, validation, and bulk inserts. ALso contains logic for chart data aggregation 
+- views.py: handles incomming requests and returning appropriate responses
+- tests.py: Unit testing of csv data validation and upload. 
 
-We do not expect/enforce the use of specific technologies or approaches - choose what
-feels appropriate. For example, in this repository [poetry](https://python-poetry.org/) is used for package management.
-It is not a requirement to use it.
+## Requirements
 
-We expect that you will be able to talk us through your approach to this solution and that
-you will be able to provide context around it to both a technical and non-technical audience.
+- Python
+- Django (tested with Django 3.2)
+- Redis (for caching chart data)
+- Other dependencies are listed in `requirements.txt`
+
