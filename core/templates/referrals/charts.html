@@ -1,7 +1,164 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #144650;">Data Visualization</h2>
 
-Charts go here!
+    <div class="row">
+        <!-- Bar Chart for Gender Distribution -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #144650; color: white;">
+                    <h5 class="mb-0">Gender Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="genderChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
 
+        <!-- Pie Chart for Region Distribution -->
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #144650; color: white;">
+                    <h5 class="mb-0">Region Distribution</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="regionChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Line Chart for Yearly Birth Counts -->
+        <div class="col-md-12 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background-color: #144650; color: white;">
+                    <h5 class="mb-0">Number of Individuals Born Each Year</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="yearlyBirthChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Gender Distribution Chart -->
+    <script>
+    const ctx = document.getElementById('genderChart').getContext('2d');
+    const genderChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ genders|safe }},
+            datasets: [{
+                label: 'Number of Individuals',
+                data: {{ gender_counts|safe }},
+                backgroundColor: 'rgba(20, 70, 80, 0.5)',
+                borderColor: 'rgba(20, 70, 80, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Count',
+                        color: '#144650'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Gender',
+                        color: '#144650'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#144650'
+                    }
+                }
+            }
+        }
+    });
+    
+    // Region Distribution Chart
+    const ctx2 = document.getElementById('regionChart').getContext('2d');
+    const regionChart = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: {{ regions|safe }},
+            datasets: [{
+                label: 'Number of Individuals by Region',
+                data: {{ region_counts|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+    });
+
+    // Yearly Birth Counts Chart
+    const ctx3 = document.getElementById('yearlyBirthChart').getContext('2d');
+    const yearlyBirthChart = new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: {{ years|safe }},
+            datasets: [{
+                label: 'Number of Individuals Born Each Year',
+                data: {{ yearly_counts|safe }},
+                borderColor: 'rgba(20,70,80,1)',
+                backgroundColor: 'rgba(20,70,80,.2)',
+                fill: true,
+            }]
+        },
+        options: {
+            scales:{
+              y:{
+                  beginAtZero:true,
+                  title:{
+                      display:true,
+                      text:'Count',
+                      color:'#144650'
+                  }
+              },
+              x:{
+                  title:{
+                      display:true,
+                      text:'Year',
+                      color:'#144650'
+                  }
+              }
+          },
+          plugins:{
+              legend:{
+                  labels:{
+                      color:'#144650'
+                  }
+              }
+          }
+        }
+    });
+    
+    </script>
+</div>
 {% endblock %}
