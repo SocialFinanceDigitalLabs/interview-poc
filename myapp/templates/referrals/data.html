@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Uploaded Data</h1>
+
+{% if data_exists %}
+<table class = 'table table-bordered'>
+    <tr>
+        <th>No.</th>
+        <th>ID</th>
+        <th>Date of Birth</th>
+        <th>Gender</th>
+        <th>Region</th>
+    </tr>
+    {% for person in page_obj %}
+    <tr>
+        <td>{{person.id}}</td>
+        <td>{{ person.external_id }}</td>
+        <td>{{ person.date_of_birth }}</td>
+        <td>{{ person.get_gender_display }}</td>
+        <td>{{ person.region }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class = 'pagination'>
+    
+    {% if page_obj.has_previous %}
+    <a href = '?page=1'>First</a>
+    <a href = '?page={{page_obj.previous_page_number}}'>Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number}} of {{ page_obj.paginator.num_pages}}</span>
+
+    {% if page_obj.has_next %}
+        <a href = '?page={{page_obj.next_page_number}}'>Next</a>
+        <a href = '?page={{page_obj.paginator.num_pages}}'>Last</a>
+    {% endif %}
+
+</div>
+
+{% else %}
+<h2>No data available</h2>
+{% endif %}
+{% endblock %}

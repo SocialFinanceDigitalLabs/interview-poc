@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+{% if data_exists %}
+<h2 class="container d-flex justify-content-center">Data already present</h2>
+
+{% else %}
+
+Uploads go here.
+<div class = 'container mt-4'>
+<h1 class = 'card p-4'> Upload CSV File</h1>
+
+<form method = 'post' enctype = 'multipart/form-data'>
+    {% csrf_token %}
+    <div class = 'mb-3'>
+    {{form.as_p}}
+    </div>
+    <button type = 'submit' class="btn btn-primary w-20">Upload</button>
+</form>
+<p>
+    <a href = "{% url 'data' %}">View Uploaded Data</a>
+</p>
+</div>
+{% endif %}
+{% endblock %}
