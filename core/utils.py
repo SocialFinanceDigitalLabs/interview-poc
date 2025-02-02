@@ -1,4 +1,3 @@
-# core/utils.py
 from django.db.models import Count
 from datetime import datetime
 from .models import Person
